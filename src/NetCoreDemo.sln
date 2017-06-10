@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreDemo.Service", "NetC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreDemo.API", "NetCoreDemo.API\NetCoreDemo.API.csproj", "{A79EC71C-0BB3-4732-88E9-E301BADE797D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreDemo.Test", "NetCoreDemo.Test\NetCoreDemo.Test.csproj", "{A3EF7E07-755D-4419-8347-A63772888B47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A79EC71C-0BB3-4732-88E9-E301BADE797D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79EC71C-0BB3-4732-88E9-E301BADE797D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79EC71C-0BB3-4732-88E9-E301BADE797D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3EF7E07-755D-4419-8347-A63772888B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3EF7E07-755D-4419-8347-A63772888B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3EF7E07-755D-4419-8347-A63772888B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3EF7E07-755D-4419-8347-A63772888B47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
