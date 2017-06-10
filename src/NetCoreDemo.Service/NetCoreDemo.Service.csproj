@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <RootNamespace>NetCoreDemo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreDemo.Data\NetCoreDemo.Data.csproj" />
+    <ProjectReference Include="..\NetCoreDemo.Repository\NetCoreDemo.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
