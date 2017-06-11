@@ -1,0 +1,75 @@
+﻿<!--have tried to do Model-Driven form but seems like my form would randomly return this error
+----Can't bind to 'formGroup' since it isn't a known property of 'form'. ("<form [ERROR ->][formGroup]="form">---
+ReactiveFormsModule has been imported, but somehow the form will have this error even if it was working perfectly and without any changes..
+so not to delay more on my demo, will use the template-driven form-->
+<!--this component is throwing error even using the template-driven form. one way to make this work is remove all contents on this html file, then refresh the page,
+then paste again the content of this html... vs will work again.. quiet strange and still can't figure out the cause of this-->
+
+<!--got the some issue as reported on this link: https://github.com/angular/angular/issues/14288
+but at least there's a workaround as suggested: "The work around is to import FormsModule and ReactiveFormsModue into both the app.module.client and app.module.server."
+    
+-->
+
+
+<form #f="ngForm" (ngSubmit)="save(f.value,f.valid)" novalidate>
+    <input type="hidden" id="Id" name="Id" placeholder="Id" [(ngModel)]="vehicle.id" #id="ngModel" required minlength="3">
+    <div class="form-group row">
+        <label for="Make" class="col-sm-2 col-form-label">Make</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Make" name="Make" placeholder="Make" [(ngModel)]="vehicle.make" #make="ngModel" required minlength="3">
+            <small [hidden]="make.valid" class="text-danger">
+                Name is required (minimum 3 characters).
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Model" class="col-sm-2 col-form-label">Model</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Model" name="Model" placeholder="Model" [(ngModel)]="vehicle.model" #model="ngModel" required>
+            <small [hidden]="model.valid" class="text-danger">
+                Model is required.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Engine" class="col-sm-2 col-form-label">Engine</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="Engine" name="Engine" placeholder="Model" [(ngModel)]="vehicle.engine" #engine="ngModel" required>
+            <small [hidden]="engine.valid" class="text-danger">
+                Engine is required.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="options.doors">
+        <label for="Doors" class="col-sm-2 col-form-label">Doors</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="Doors" [(ngModel)]="vehicle.doors" #doors="ngModel">
+                <option *ngFor='let door of options.doors' [ngValue]='door'>
+                    {{door}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="options.wheels">
+        <label for="Wheels" class="col-sm-2 col-form-label">Wheels</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="Wheels" [(ngModel)]="vehicle.wheels" #wheels="ngModel">
+                <option *ngFor='let wheel of options.wheels' [ngValue]='wheel'>
+                    {{wheel}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="options.bodytypes">
+        <label for="BodyType" class="col-sm-2 col-form-label">Body Type</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="BodyType" [(ngModel)]="vehicle.bodyType" #wheels="ngModel">
+                <option *ngFor='let body of options.bodytypes' [ngValue]='body'>
+                    {{body}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <p><button type="submit">Save</button><button type="button" (click)="cancel()">Cancel</button></p>
+
+</form>

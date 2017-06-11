@@ -1,8 +1,9 @@
 ﻿<h1>Vehicle listing</h1>
 
 
-<p *ngIf="!vehicles"><em>Loading...</em></p>
-<table class="table table-striped" *ngIf="vehicles">
+<p *ngIf="!_vehicles"><em>Loading...</em></p>
+<a [routerLink]="['/car']">Add Car</a> | <a [routerLink]="['/bike']">Add Bike</a>
+<table class="table table-striped" *ngIf="_vehicles">
     <thead>
         <tr>
             <th>Make</th>
@@ -12,10 +13,11 @@
             <th>Wheels</th>
             <th>Category</th>
             <th>Body</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let vehicle of vehicles">
+        <tr *ngFor="let vehicle of _vehicles">
             <td>{{vehicle.make}}</td>
             <td>{{vehicle.model}}</td>
             <td>{{vehicle.engine}}</td>
@@ -23,6 +25,8 @@
             <td>{{vehicle.wheels}}</td>
             <td>{{vehicle.category}}</td>
             <td>{{vehicle.bodyType}}</td>
+            <td *ngIf="(vehicle.category | lowercase) == 'car'"><a [routerLink]="['/car']" [queryParams]="{ id: vehicle.id}" >Edit</a></td>
+            <td *ngIf="(vehicle.category | lowercase) == 'bike'"><a [routerLink]="['/bike']" [queryParams]="{ id: vehicle.id}">Edit</a></td>
         </tr>
     </tbody>
 </table>

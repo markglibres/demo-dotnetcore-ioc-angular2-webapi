@@ -19,7 +19,7 @@ namespace NetCoreDemo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<Vehicle> Post(Vehicle value)
+        public async Task<Vehicle> Post([FromBody]Vehicle value)
         {
             var entity = await _vehicleService.AddCarAsync(value.Make, value.Model, value.Engine, value.Doors, value.Wheels, value.BodyType);
             return entity;
@@ -28,7 +28,7 @@ namespace NetCoreDemo.API.Controllers
 
         // PUT: api/Car/5
         [HttpPut("{id}")]
-        public async Task<Vehicle> Put(long id, Vehicle value)
+        public async Task<Vehicle> Put(long id, [FromBody]Vehicle value)
         {
             return await _vehicleService.EditCarAsync(id, value.Make, value.Model, value.Engine, value.Doors, value.Wheels, value.BodyType);
         }
