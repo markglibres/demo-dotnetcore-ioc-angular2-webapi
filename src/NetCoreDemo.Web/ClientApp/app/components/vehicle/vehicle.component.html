@@ -1,0 +1,29 @@
+﻿<h1>Vehicle listing</h1>
+
+
+<p *ngIf="!vehicles"><em>Loading...</em></p>
+<table class="table table-striped" *ngIf="vehicles">
+    <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Engine</th>
+            <th>Doors</th>
+            <th>Wheels</th>
+            <th>Category</th>
+            <th>Body</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+            <td>{{vehicle.make}}</td>
+            <td>{{vehicle.model}}</td>
+            <td>{{vehicle.engine}}</td>
+            <td>{{vehicle.doors}}</td>
+            <td>{{vehicle.wheels}}</td>
+            <td>{{vehicle.category}}</td>
+            <td>{{vehicle.bodyType}}</td>
+        </tr>
+    </tbody>
+</table>
+
