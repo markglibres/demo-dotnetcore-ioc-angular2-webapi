@@ -4,13 +4,18 @@ using System.Text;
 
 namespace NetCoreDemo
 {
-    public enum Category
+    public static class Category
     {
-        Car=1, Bike
+        public const string Car = "Car";
+        public const string Bike = "Bike";
     }
 
-    public enum BodyType
+    public static class BodyType
     {
-        Hatchback=1, Sedan, Road, OffRoad
+
+        public const string Hatchback = "Hatchback";
+        public const string Sedan = "Sedan";
+        public const string Road = "Road";
+        public const string OffRoad = "OffRoad"; 
     }
 }
