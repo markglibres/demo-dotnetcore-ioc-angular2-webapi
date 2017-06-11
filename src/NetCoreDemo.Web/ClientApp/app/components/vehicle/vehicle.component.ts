@@ -1,5 +1,6 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../interfaces/vehicle.interface';
 
 @Component({
     selector: 'vehicle',
@@ -8,25 +9,19 @@ import { VehicleService } from '../../services/vehicle.service';
 
 })
 
-export class VehicleComponent {
-    public vehicles: Vehicles[];
+export class VehicleComponent implements OnInit {
+    public _vehicles: Vehicle[];
 
-    constructor(private vehicleService: VehicleService) {
+    constructor(private _vehicleService: VehicleService) {
 
-        this.vehicleService.getListing().subscribe(vehicles => {
-            this.vehicles = vehicles;
+        
+    }
+
+    ngOnInit() {
+        this._vehicleService.getListing().subscribe(vehicles => {
+            this._vehicles = vehicles;
         });
+        
     }
 }
 
-interface Vehicles {
-    id: number;
-    make: string;
-    model: string;
-    engine: string;
-    doors: number;
-    wheels: number;
-    category: string;
-    bodyType: string;
-
-}
