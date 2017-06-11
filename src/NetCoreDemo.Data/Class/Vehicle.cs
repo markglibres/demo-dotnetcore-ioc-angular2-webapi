@@ -11,8 +11,9 @@ namespace NetCoreDemo
         public string Engine { get; set; }
         public int Doors { get; set; }
         public int Wheels { get; set; }
-        public Category Category { get; set; }
-        public BodyType BodyType { get; set; }
+        //simplified as string instead of a lookup-up value for demo purposes
+        public string Category { get; set; }
+        public string BodyType { get; set; }
 
     }
 }

@@ -14,7 +14,7 @@ namespace NetCoreDemo
             _repository = repository;
         }
 
-        public async Task<Vehicle> AddBikeAsync(string make, string model, string engine, int wheels, BodyType bodyType)
+        public async Task<Vehicle> AddBikeAsync(string make, string model, string engine, int wheels, string bodyType)
         {
             var bike = new Vehicle()
             {
@@ -35,7 +35,7 @@ namespace NetCoreDemo
 
         }
 
-        public async Task<Vehicle> EditBikeAsync(long id, string make, string model, string engine, int wheels, BodyType bodyType)
+        public async Task<Vehicle> EditBikeAsync(long id, string make, string model, string engine, int wheels, string bodyType)
         {
             var bike = await _repository.GetByIdAsync(id);
             bike.Make = make;
@@ -51,7 +51,7 @@ namespace NetCoreDemo
 
         }
 
-        public async Task<Vehicle> AddCarAsync(string make, string model, string engine, int doors, int wheels, BodyType bodyType)
+        public async Task<Vehicle> AddCarAsync(string make, string model, string engine, int doors, int wheels, string bodyType)
         {
             var car = new Vehicle()
             {
@@ -70,7 +70,7 @@ namespace NetCoreDemo
             return entity;
         }
 
-        public async Task<Vehicle> EditCarAsync(long id, string make, string model, string engine, int doors, int wheels, BodyType bodyType)
+        public async Task<Vehicle> EditCarAsync(long id, string make, string model, string engine, int doors, int wheels, string bodyType)
         {
             var car = await _repository.GetByIdAsync(id);
             car.Make = make;
