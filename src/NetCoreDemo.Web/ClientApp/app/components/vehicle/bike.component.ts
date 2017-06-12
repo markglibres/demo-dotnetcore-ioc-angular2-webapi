@@ -13,6 +13,8 @@ export class BikeComponent implements OnInit {
         
     private _id: number;
     private sub: any;
+    public _loading: boolean = false;
+    public _errMsg: string;
 
     public vehicle: Vehicle;
     public options = {
@@ -28,7 +30,7 @@ export class BikeComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        
         //read param id
         this._id = this.route.snapshot.queryParams['id'];
       
@@ -44,36 +46,46 @@ export class BikeComponent implements OnInit {
                 BodyType: ''
             };
         } else {
-            this._vehicleService.getById(this._id).subscribe(r => { this.vehicle = r; });
+            this._loading = true;
+            this._vehicleService.getById(this._id).subscribe(
+                r => { this.vehicle = r; },
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null;}
+            );
         }
         
     }
-
-   
-
+    
     save(model: Vehicle, isValid: boolean) {
+        this._loading = true;
         if (model.Id && model.Id > 0) {
-            this._vehicleService.editBike(model).subscribe(r => console.log(r));
+            this._vehicleService.editBike(model).subscribe(
+                r => console.log(r),
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null; this.router.navigate(['/vehicle']); }
+            );
         }
         else {
-            this._vehicleService.addBike(model).subscribe(r => console.log(r));
+            this._vehicleService.addBike(model).subscribe(
+                r => console.log(r),
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null; this.router.navigate(['/vehicle']); }
+            );
            
             //this.router.navigate(['/vehicle']);
 
         }
-        //have some issues with router, not sure if a bug on VS 2017 templates
-        //like similar issues to the  forms module: https://github.com/angular/angular/issues/14288
-        //so for the meantime, let's use location.href
-        location.href = '/vehicle';
+        
        
     }
 
     cancel() {
-        //have some issues with router, not sure if a bug on VS 2017 templates
-        //like similar issues to the  forms module: https://github.com/angular/angular/issues/14288
-        //so for the meantime, let's use location.href
-        //this.router.navigate(['/vehicle']);
-        location.href = '/vehicle';
+       this.router.navigate(['/vehicle']);
+       
+    }
+
+    populateDoorOptions() {
+      
     }
 
 }
