@@ -13,11 +13,13 @@ export class CarComponent implements OnInit {
         
     private _id: number;
     private sub: any;
+    public _loading: boolean = false;
+    public _errMsg: string;
 
     public vehicle: Vehicle;
     public options = {
-        wheels: [4,6],
-        doors: [2,4,5],
+        wheels: null,
+        doors: [2,4],
         bodytypes: ["Hatchback", "Sedan"]
     };
 
@@ -28,7 +30,7 @@ export class CarComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        
         //read param id
         this._id = this.route.snapshot.queryParams['id'];
       
@@ -44,36 +46,53 @@ export class CarComponent implements OnInit {
                 BodyType: ''
             };
         } else {
-            this._vehicleService.getById(this._id).subscribe(r => { this.vehicle = r; });
+            this._loading = true;
+            this._vehicleService.getById(this._id).subscribe(
+                r => { this.vehicle = r; },
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null; console.log(this.vehicle.BodyType); }
+            );
+
+            
         }
         
     }
-
-   
-
+    
     save(model: Vehicle, isValid: boolean) {
+        this._loading = true;
         if (model.Id && model.Id > 0) {
-            this._vehicleService.editCar(model).subscribe(r => console.log(r));
+            this._vehicleService.editCar(model).subscribe(
+                r => console.log(r),
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null; this.router.navigate(['/vehicle']); }
+            );
         }
         else {
-            this._vehicleService.addCar(model).subscribe(r => console.log(r));
+            this._vehicleService.addCar(model).subscribe(
+                r => console.log(r),
+                err => { this._errMsg = err; this._loading = false; },
+                () => { this._loading = false; this._errMsg = null; this.router.navigate(['/vehicle']); }
+            );
            
             //this.router.navigate(['/vehicle']);
 
         }
-        //have some issues with router, not sure if a bug on VS 2017 templates
-        //like similar issues to the  forms module: https://github.com/angular/angular/issues/14288
-        //so for the meantime, let's use location.href
-        location.href = '/vehicle';
+        
        
     }
 
     cancel() {
-        //have some issues with router, not sure if a bug on VS 2017 templates
-        //like similar issues to the  forms module: https://github.com/angular/angular/issues/14288
-        //so for the meantime, let's use location.href
-        //this.router.navigate(['/vehicle']);
-        location.href = '/vehicle';
+       this.router.navigate(['/vehicle']);
+       
+    }
+
+    populateDoorOptions(bodyType) {
+        
+        if (bodyType && bodyType.toLowerCase() == "hatchback") {
+            this.options.doors = [2, 4];
+        } else {
+            this.options.doors = null;
+        }
     }
 
 }

@@ -13,6 +13,7 @@ export class VehicleService {
 
     constructor(private http: Http) {
 
+        //this.vehicleServiceUrl = 'http://localhost:54677/api';
         this.vehicleServiceUrl = 'http://markg-dotnetcoredemo-api.azurewebsites.net/api';
     }
 
@@ -42,12 +43,22 @@ export class VehicleService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
+        model.Wheels = 4;
+        if (model.BodyType.toLowerCase() == 'sedan') {
+            model.Doors = 4;
+        } 
+
         return this.http.post(this.vehicleServiceUrl + '/car', JSON.stringify(model), { headers: headers }).map(res => res.json());
     }
 
     editCar(model: Vehicle) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+
+        model.Wheels = 4;
+        if (model.BodyType.toLowerCase() == 'sedan') {
+            model.Doors = 4;
+        } 
 
         return this.http.put(this.vehicleServiceUrl + '/car/' + model.Id, JSON.stringify(model), { headers: headers }).map(res => res.json());
     }

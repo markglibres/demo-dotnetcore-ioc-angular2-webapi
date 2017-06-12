@@ -7,16 +7,17 @@ then paste again the content of this html... vs will work again.. quiet strange 
 
 <!--got the some issue as reported on this link: https://github.com/angular/angular/issues/14288
 but at least there's a workaround as suggested: "The work around is to import FormsModule and ReactiveFormsModue into both the app.module.client and app.module.server."
-    
+
+running out of time, so won't change back to use Model-Driven form.. :)
 -->
 
 
-<form #f="ngForm" (ngSubmit)="save(f.value,f.valid)" novalidate>
+<form #f="ngForm" (ngSubmit)="save(f.value,f.valid)" novalidate *ngIf="vehicle">
     <input type="hidden" id="Id" name="Id" placeholder="Id" [(ngModel)]="vehicle.id" #id="ngModel" required minlength="3">
     <div class="form-group row">
         <label for="Make" class="col-sm-2 col-form-label">Make</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="Make" name="Make" placeholder="Make" [(ngModel)]="vehicle.make" #make="ngModel" required minlength="3">
+            <input type="text" class="form-control" id="Make" name="Make" placeholder="Make" [(ngModel)]="vehicle.make" #make="ngModel" required minlength="3" [disabled]="_loading">
             <small [hidden]="make.valid" class="text-danger">
                 Name is required (minimum 3 characters).
             </small>
@@ -25,7 +26,7 @@ but at least there's a workaround as suggested: "The work around is to import Fo
     <div class="form-group row">
         <label for="Model" class="col-sm-2 col-form-label">Model</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="Model" name="Model" placeholder="Model" [(ngModel)]="vehicle.model" #model="ngModel" required>
+            <input type="text" class="form-control" id="Model" name="Model" placeholder="Model" [(ngModel)]="vehicle.model" #model="ngModel" required [disabled]="_loading">
             <small [hidden]="model.valid" class="text-danger">
                 Model is required.
             </small>
@@ -34,7 +35,7 @@ but at least there's a workaround as suggested: "The work around is to import Fo
     <div class="form-group row">
         <label for="Engine" class="col-sm-2 col-form-label">Engine</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="Engine" name="Engine" placeholder="Model" [(ngModel)]="vehicle.engine" #engine="ngModel" required>
+            <input type="text" class="form-control" id="Engine" name="Engine" placeholder="Model" [(ngModel)]="vehicle.engine" #engine="ngModel" required [disabled]="_loading">
             <small [hidden]="engine.valid" class="text-danger">
                 Engine is required.
             </small>
@@ -43,7 +44,7 @@ but at least there's a workaround as suggested: "The work around is to import Fo
     <div class="form-group row" *ngIf="options.doors">
         <label for="Doors" class="col-sm-2 col-form-label">Doors</label>
         <div class="col-sm-10">
-            <select class="form-control" name="Doors" [(ngModel)]="vehicle.doors" #doors="ngModel">
+            <select class="form-control" name="Doors" [(ngModel)]="vehicle.doors" #doors="ngModel" [disabled]="_loading">
                 <option *ngFor='let door of options.doors' [ngValue]='door'>
                     {{door}}
                 </option>
@@ -53,7 +54,7 @@ but at least there's a workaround as suggested: "The work around is to import Fo
     <div class="form-group row" *ngIf="options.wheels">
         <label for="Wheels" class="col-sm-2 col-form-label">Wheels</label>
         <div class="col-sm-10">
-            <select class="form-control" name="Wheels" [(ngModel)]="vehicle.wheels" #wheels="ngModel">
+            <select class="form-control" name="Wheels" [(ngModel)]="vehicle.wheels" #wheels="ngModel" [disabled]="_loading">
                 <option *ngFor='let wheel of options.wheels' [ngValue]='wheel'>
                     {{wheel}}
                 </option>
@@ -63,13 +64,15 @@ but at least there's a workaround as suggested: "The work around is to import Fo
     <div class="form-group row" *ngIf="options.bodytypes">
         <label for="BodyType" class="col-sm-2 col-form-label">Body Type</label>
         <div class="col-sm-10">
-            <select class="form-control" name="BodyType" [(ngModel)]="vehicle.bodyType" #wheels="ngModel">
+            <select class="form-control" name="BodyType" [(ngModel)]="vehicle.bodyType" #bodytype="ngModel" [disabled]="_loading" (change)="populateDoorOptions(bodytype.value)">
                 <option *ngFor='let body of options.bodytypes' [ngValue]='body'>
                     {{body}}
                 </option>
             </select>
         </div>
     </div>
-    <p><button type="submit">Save</button><button type="button" (click)="cancel()">Cancel</button></p>
-
+    <p><button type="submit" [disabled]="_loading">Save</button><button type="button" (click)="cancel()" [disabled]="_loading">Cancel</button></p>
 </form>
+<p *ngIf="_loading"><em>Loading...please wait</em></p>
+<p *ngIf="!_loading && _errMsg"><em class="text-danger">Error has occured. Please try again.</em></p>
+<p *ngIf="!_loading  && _errMsg"><em class="text-danger">{{_errMsg}}</em></p>
