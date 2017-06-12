@@ -24,10 +24,7 @@ export class VehicleComponent implements OnInit {
     ngOnInit() {
         this._loading = true;
         this.sub = this.route.params.subscribe(params => {
-            //this.id = +params['id']; // (+) converts string 'id' to a number
-            // Some 'reload' coding
-            // In a real app: dispatch action to load the details here.
-        }); 
+         }); 
         this._vehicleService.getListing().subscribe(
             vehicles => {
                 this._vehicles = vehicles;
