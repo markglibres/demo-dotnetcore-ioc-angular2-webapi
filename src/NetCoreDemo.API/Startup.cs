@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace NetCoreDemo.API
 {
@@ -34,6 +35,13 @@ namespace NetCoreDemo.API
             services.AddTransient<IVehicleService, VehicleService>();
             // Add framework services.
             services.AddMvc();
+
+            //swagger
+          
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "DotNetCore Demo API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +59,13 @@ namespace NetCoreDemo.API
                                           //corsBuilder.WithOrigins("http://localhost:56573"); // for a specific url.
             });
             app.UseMvc();
+
+            //swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNetCore Demo API");
+            });
         }
     }
 }
