@@ -13,8 +13,8 @@ export class VehicleService {
 
     constructor(private http: Http) {
 
-        //this.vehicleServiceUrl = 'http://localhost:54677/api';
-        this.vehicleServiceUrl = 'http://markg-dotnetcoredemo-api.azurewebsites.net/api';
+        this.vehicleServiceUrl = 'http://localhost:54677/api';
+        //this.vehicleServiceUrl = 'http://markg-dotnetcoredemo-api.azurewebsites.net/api';
     }
 
     getListing() {
