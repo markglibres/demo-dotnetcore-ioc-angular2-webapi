@@ -1,5 +1,5 @@
 # demo-dotnetcore-ioc-angular2-webapi
-A simple demo on dotnetcore, IoC, AngularJS 2, xUnit, generic repository pattern, service layer pattern and WebAPI (with Swagger)
+A simple demo on dotnetcore, built-in IoC container, AngularJS 2, xUnit, generic repository pattern, service layer pattern and WebAPI (with Swagger)
 
 Download or clone the project and open it with Visual Studio 2017.
 
